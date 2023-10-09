@@ -6,6 +6,8 @@ from django.conf import settings
 import jwt
 import datetime
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .serializers import UserSerializer
 import hashlib
 
@@ -20,12 +22,13 @@ def register(request):
         if User.objects.filter(username=new_user):
             return HttpResponse("Такой пользователь уже существует", status=500)
         else:
-            User.objects.create(username=request.POST.get('username'),
+            User.objects.create(username=new_user,
                                 password=hashlib.md5(str.encode(request.POST.get('password'))).hexdigest(),
                                 age=request.POST.get('age'),
                                 gender=request.POST.get('gender')
                                 )
-            session[settings.USER_SESSION_ID] = jwt.encode({"exp": datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(seconds=30)},
+            session[settings.USER_SESSION_ID] = jwt.encode({"exp": datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(seconds=30),
+                                                            'username': new_user},
                                                             settings.SECRET_KEY, algorithm="HS256")
             return HttpResponse("Успешная регистрация", status=200)
 
@@ -35,7 +38,31 @@ def register(request):
         return render(request, 'register/register.html', {'user_form':user_form})
 
 
-class RegisterAPIView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class RegisterAPIView(generics.ListAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
+
+class RegisterAPIView(APIView):
+    def post(self, request):
+
+        return Response({'Register': 'Post'})
+
+    def update(self, request):
+        pass
+
+    def delete(self, request):
+        pass
+
+
+"""
+Register
+Post - регистрация
+Update - изменение информации
+Delete - удаление
+
+2 сериализатора - Login + Register
+Login
+Get - проверка авторизации
+Post - авторизация
+"""

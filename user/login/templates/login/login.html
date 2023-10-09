@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+
+<form action="{% url 'login:login'%}" method="post">
+    {{user_form}}
+    {%csrf_token%}
+    <input type="submit" value="Login">
+</form>
+
+<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ac82f7ad5b92deb5eef6555d20fa5bcb9a8cc485006b81c2c0be7ecffccf33c22&amp;width=589&amp;height=450&amp;lang=ru_RU&amp;scroll=true">
+
+</script>
+
+</body>
+</html>
