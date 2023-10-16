@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    username = models.CharField(verbose_name='username', max_length=40)
-    password = models.CharField(verbose_name='password', max_length=30)
+    username = models.CharField(verbose_name='username', max_length=40, unique=True)
+    password = models.CharField(verbose_name='password', max_length=50)
     age = models.IntegerField(verbose_name='age')
     gender = models.CharField(verbose_name='gender', max_length=30)
 

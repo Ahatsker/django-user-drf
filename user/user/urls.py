@@ -23,6 +23,8 @@ urlpatterns = [
     path('register/', include('register.urls', namespace='register')),
     path('login/', include('login.urls', namespace='login')),
     path('admin/', admin.site.urls),
-    path('api/user', RegisterAPIView.as_view()),
-    path('api/auth', LoginAPIView.as_view())
+    path('api/register/', RegisterAPIView.as_view()),
+    path('api/change_user/<int:pk>', ChangeAPIView.as_view()),
+    path('drf_auth/', include('rest_framework.urls')),
+    path('api/auth/', LoginAPIView.as_view())
 ]
